@@ -27,7 +27,7 @@ Jolliffe IT, Cadima J. 2016 *Principal component analysis: a review and recent d
 
 ### 目的
 * 元のデータを射影したときに分散が最大となるような軸を探したい
-<br/>;
+<br/>
 <br/>
 <br/>
 
@@ -179,3 +179,39 @@ $$\pi = \frac{\sum_{i=1}^{q}\lambda_i}{\sum_{j=1}^{p}\lambda_j}$$
 </div>
 <br/>
 <br/>
+
+### 可視化の手法：Biplots
+
+中心化されたデータ行列 $\boldsymbol{X}^{*}$ の特異値分解を $\boldsymbol{ULA'}$ とし,  $\boldsymbol{X}^{*}$ を以下のように分解する
+
+<br/>
+
+$$\boldsymbol{X}^{*} = \boldsymbol{GH'}$$
+
+<br/>
+
+ただし, $\boldsymbol{G} = \boldsymbol{U}$,  $\boldsymbol{H} = \boldsymbol{AL}$ である. この時,  $\boldsymbol{G}$, $\boldsymbol{H}$の列を左から  $q$ 列（通常は $q = 2$）取り出してプロットしたものが以下 (本文では7変数の化石の歯のデータ95件を使用)
+
+<br/>
+<br/>
+<img src="../data/biplot.png" alt="svd" />
+(本文より引用)
+<br/>
+<br/>
+
+ただし,  $\boldsymbol{G}$ から取り出したものは点で,  $\boldsymbol{H}$　から取り出したものは赤字のベクトルで表記されている. このようなプロットをするのは上のような分解が $\boldsymbol{X}^{*}$ のベクトル $\boldsymbol{x}_i$ を $\boldsymbol{H}$ の各行 $\boldsymbol{h}_j$ を基底ベクトル, $\boldsymbol{G}$ の各行の値 $g_{ij}$ を係数として
+
+<br/>
+
+$$\boldsymbol{x}_i = \sum_{j}g_{ij}\boldsymbol{h}_j$$
+
+<br/>
+
+と分解することと同じなことに対応していると考えられる.
+<br/>
+<br/>
+<br/>
+
+## 3. Adaptations of principal component analysis
+
+### Robust PCA
