@@ -1,5 +1,7 @@
 # 主成分分析論文まとめ
 
+注意：以下のタイトルの論文を読んで内容を自分なりにまとめていますが、論文内の全てのトピックをカバーしているわけではありません。また、途中で自分用のメモを挟んだり脱線したりしています。
+
 ## タイトル
 
 Jolliffe IT, Cadima J. 2016 *Principal component analysis: a review and recent developments.* Phil. Trans. R. Soc. A 374: 20150202.
@@ -211,6 +213,61 @@ $$\boldsymbol{x}_i = \sum_{j}g_{ij}\boldsymbol{h}_j$$
 <br/>
 <br/>
 <br/>
+
+---
+#### 番外編：白色化
+
+論文中では主成分分析を行う前の処理として中心化や標準化が紹介されているが, それらより少し高度な手法として**白色化**という処理があるので紹介したい. 発想としては, 「訓練データの成分間の相関をなくす」というものである.
+
+$p$  次元のデータ $\boldsymbol{x} = (x_1, ..., x_p)$ を考える. $n$ 個のサンプル $\boldsymbol{x}_1, ..., \boldsymbol{x}_n$ からあらかじめその平均を引いたものを並べたデータ行列 $\boldsymbol{X}$ を作ると, その共分散行列は
+
+<br/>
+
+$$\Phi_X = \frac{1}{n}\boldsymbol{X}\boldsymbol{X}'$$
+
+<br/>
+
+で与えられる. ここで, 各サンプルに $p \times p$ 行列 $G$ による線形変換
+
+<br/>
+
+$$\boldsymbol{h}_n = \boldsymbol{G}\boldsymbol{x}_n$$
+
+<br/>
+
+を施したときの $\boldsymbol{h}_1, ..., \boldsymbol{h}_n$ の共分散行列
+
+<br/>
+
+$$\Phi_H = \frac{1}{n}\boldsymbol{H}\boldsymbol{H}'$$
+
+<br/>
+
+が**対角行列**になるように $\boldsymbol{G}$ を定める. 共分散行列の $(i, j)$ 成分はサンプルの $i$ 成分と $j$ 成分の相関を表しているから, それが対角行列である時 $(i, j)$ 成分 $(i\neq j)$ の相関が無くなっていると言える. 対角行列といっても色々と考えられるので例えば $\Phi_H = \boldsymbol{I}$ (単位行列) とすると,  $\boldsymbol{H} = \boldsymbol{GX}$ より 
+
+<br/>
+
+$$\boldsymbol{G}'\boldsymbol{G} = \boldsymbol{\Phi}_X^{-1}$$
+
+<br/>
+
+が得られる. ここで, $\boldsymbol{\Phi}_X$ の固有値分解を $\boldsymbol{ULU}'$ とおくと, $\boldsymbol{\Phi}_X^{-1} = \boldsymbol{U} \boldsymbol{L}^{-1}\boldsymbol{U'}$ だから, 
+
+<br/>
+
+$$\boldsymbol{G} = \boldsymbol{Q}\boldsymbol{L}^{-1/2}\boldsymbol{U}'$$
+
+<br/>
+
+となる. ここで, $\boldsymbol{Q}$ は任意の $p \times p$ の直交行列である. 例えば $\boldsymbol{Q} = \boldsymbol{I}$ としたとき求められる $\boldsymbol{G}$ は解の一つであり, このように $\boldsymbol{G}$ を求めて元のデータを変換することを白色化と呼ぶ. 他にも $\boldsymbol{Q} = \boldsymbol{E}$ とするような方法も考えられる. 
+
+<br/>
+
+#### 実践：白色化
+
+自然画像のデータセット <a href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR10</a> を用いて白色化を行ってみる. 訓練データ50000件（$32 \times 32$ のRGB画像）を使用することにする.
+
+---
 
 ## 3. Adaptations of principal component analysis
 
